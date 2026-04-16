@@ -1,18 +1,20 @@
-# Instala pacotes do R para modelagem matemática, ML e integração com Jupyter
+# ----------------------
+# Pacotes
+# ----------------------
 
 local_packages <- c(
-    "IRkernel",     # Para usar o kernel R no VS Code / Jupyter
-    "deSolve",      # Solvers essenciais de equações diferenciais
-    "pracma",       # Matemática aplicada (álgebra linear, cálculo, equações diferenciais)
-    "reticulate",   # Integração direta com Python (reaproveitar numpy/pandas/pytorch)
-    "tidyverse",    # Suite padrão de manipulação e organização de dados
-    "ggplot2"       # Para plotagens científicas
+    "IRkernel",
+    "deSolve",
+    "pracma",
+    "reticulate",
+    "tidyverse",
+    "ggplot2"
 )
 
 install_if_missing <- function(p) {
     if (!requireNamespace(p, quietly = TRUE)) {
         cat(paste("\nInstalando pacote:", p, "\n"))
-        install.packages(p, repos = "http://cran.us.r-project.org")
+        install.packages(p, repos = "https://cran.r-project.org")
     } else {
         cat(paste("\nPacote já instalado:", p, "\n"))
     }
@@ -20,7 +22,18 @@ install_if_missing <- function(p) {
 
 invisible(lapply(local_packages, install_if_missing))
 
-# Instala e registra o kernel do R para uso interativo com os notebooks do workspace
+# ----------------------
+# Integração com Python 
+# ----------------------
+
+cat("\nConfigurando reticulate...\n")
+reticulate::use_condaenv("dynamical-sys", required = TRUE)
+
+# ----------------------
+# Jupyter Kernel
+# ----------------------
+
 cat("\nRegistrando IRkernel no Jupyter...\n")
 IRkernel::installspec(user = FALSE)
+
 cat("Ambiente R para SciML pronto!\n")
