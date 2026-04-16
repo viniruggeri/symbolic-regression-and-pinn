@@ -32,19 +32,62 @@ Repositorio de estudos em dinamicas, sistemas nao lineares e Scientific Machine 
 
 ## Configuracao Rapida
 
-1. Criar ambiente e instalar dependencias com Poetry:
+### Usando Mamba (recomendado, mais rápido)
 
 ```bash
-poetry install
+mamba env create -f environment.yml
+mamba activate dynamical-sys
 ```
 
-2. Ativar shell do ambiente:
+### Usando Conda (se mamba não estiver instalado)
 
 ```bash
-poetry shell
+conda env create -f environment.yml
+conda activate dynamical-sys
 ```
 
-3. Rodar notebooks no VS Code/Jupyter com o kernel do ambiente.
+**Se o solver travar**, use o ambiente minimalista:
+
+```bash
+conda env create -f environment-minimal.yml
+conda activate dynamical-sys-minimal
+```
+
+### Atualizar dependências
+
+```bash
+# Com mamba
+mamba env update -f environment.yml --prune
+
+# Com conda
+conda env update -f environment.yml --prune
+```
+
+### Uso no VS Code / Jupyter
+
+Selecione o kernel `dynamical-sys` nos notebooks Python (.ipynb).
+
+Para o frontend do Streamlit, use o Python desse mesmo ambiente e instale apenas as dependências de `engine/frontend/requirements.txt` se necessário.
+
+## Setup de R e Julia (SciML Avançado)
+
+Como o conda não lida bem nativamente com R e Julia atualizados no Windows, recomenda-se instalá-los nos seus canais oficiais e injetar os kernels no ambiente.
+
+### 1. Preparando Julia (Equações Diferenciais e SciML)
+- Baixe e instale a versão mais recente em [julialang.org](https://julialang.org/downloads/) e adicione ao PATH.
+- Abra o terminal do ambiente e execute o script de instalação (ele configura o kernel `IJulia` e o pacote `DifferentialEquations.jl`):
+```bash
+julia utils/julia-pckg.jl
+```
+
+### 2. Preparando R (Análise Estatística e deSolve)
+- Baixe e instale o R base em [cran.r-project.org](https://cran.r-project.org/bin/windows/base/) e adicione ao PATH.
+- Abra o terminal (como Admin, se der erro de permissão no jupyter config) e execute o script:
+```bash
+Rscript utils/r-pckg.R
+```
+
+Ao religar o VS Code, os novos kernels de R e Julia estarão perfeitamente integrados com seu ambiente, sem poluir as dependências Python originais!
 
 ## Trilhas De Estudo Sugeridas
 

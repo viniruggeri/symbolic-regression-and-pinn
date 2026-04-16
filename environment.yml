@@ -1,0 +1,104 @@
+name: dynamical-sys
+
+channels:
+  - conda-forge
+  - defaults
+  - pytorch
+
+dependencies:
+  # ----------------------
+  # CORE PYTHON
+  # ----------------------
+  - python=3.10
+  - numpy
+  - pandas
+  - scipy
+  - matplotlib
+  - seaborn
+  - sympy
+  - scikit-learn
+  - numba
+  - cython
+
+  # Jupyter / Dev
+  - jupyter
+  - jupyterlab
+  - ipykernel
+  - notebook
+  - ipywidgets
+
+  # ----------------------
+  # TORCH (CPU via PyTorch channel)
+  # ----------------------
+  - pytorch::pytorch
+  - pytorch::torchvision
+  - pytorch::torchaudio
+
+  # =============================================
+  # NOTA: Julia e R não estão disponíveis 
+  # no conda-forge para Windows.
+  # 
+  # Para instalar manualmente depois:
+  # - Julia: https://julialang.org/downloads/
+  # - R: https://cran.r-project.org/
+  # 
+  # Para adicionar Jupyter à Julia:
+  #   julia> using Pkg; Pkg.add("IJulia")
+  # =============================================
+
+  # ----------------------
+  # C++ TOOLCHAIN
+  # ----------------------
+  - cxx-compiler
+  - cmake
+  - ninja
+  - eigen
+  - boost
+
+  # ----------------------
+  # INTEROP / UTIL
+  # ----------------------
+  - pybind11
+  - xtensor
+  - xtensor-python
+
+  # ----------------------
+  # PIP (SCI ML + GP)
+  # ----------------------
+  - pip
+  - pip:
+      # SciML / Differentiable Programming
+      - torchsde
+      - deepxde
+
+      # JAX ecosystem (CPU)
+      - jax[cpu]
+      - jaxlib
+      - optax
+      - equinox
+      - diffrax
+      - lineax
+
+      # Neural ODE / dynamics
+      - torchdyn
+      - torchdiffeq
+
+      # Scientific ML extras
+      - pysindy
+      - pykoopman
+
+      # Genetic Programming / Symbolic Regression
+      - gplearn
+      - deap
+      - pymoo
+      - nevergrad
+      - cma
+      # - bingo-nasa # Falhando na compilação do wheel no Windows
+
+      # Symbolic / hybrid modeling
+      - symengine
+      - pysr
+
+      # Misc performance / utils
+      - tqdm
+      - rich
